@@ -1,10 +1,11 @@
-# Servlet and Filter Functionality
+# Servlet and Filter Functionality with CRUD Operations
 
 ## Overview
-This project demonstrates the implementation of **Servlets and Filters** in Java EE. It includes:
+This project demonstrates the implementation of **Servlets and Filters** in Java EE along with **CRUD operations using JDBC**. It includes:
 - HTTP Session Management
 - Cookie Management
 - Servlet Filters for request validation
+- CRUD (Create, Read, Update, Delete) operations using JDBC
 
 ## Features
 ### 1️⃣ **Cookie Management**
@@ -22,9 +23,17 @@ This project demonstrates the implementation of **Servlets and Filters** in Java
 - Uses filters to restrict access based on parameters.
 - Demonstrates pre-processing and post-processing filters.
 
+### 4️⃣ **CRUD Operations using JDBC**
+- Connects to a MySQL database using JDBC.
+- Implements Create, Read, Update, and Delete operations on a user table.
+- Uses different types of JDBC statements:
+  - **Statement**: Basic SQL execution.
+  - **PreparedStatement**: Precompiled SQL queries for efficiency.
+  - **CallableStatement**: Calls stored procedures.
+
 ## Project Structure
 ```
-/ServletFilterProject
+/ServletFilterCRUDProject
 │── src/
 │   ├── servlets/
 │   │   ├── Cookie1.java
@@ -37,16 +46,44 @@ This project demonstrates the implementation of **Servlets and Filters** in Java
 │   ├── filters/
 │   │   ├── Filter1.java
 │   │   ├── Filter2.java
+│   ├── crud/
+│   │   ├── AddUserServlet.java
+│   │   ├── ViewUsersServlet.java
+│   │   ├── UpdateUserServlet.java
+│   │   ├── DeleteUserServlet.java
+│   │   ├── DatabaseConnection.java
 │── web.xml
 │── index.html
 │── README.md
+│── database.sql
 ```
 
 ## Setup Instructions
 ### Prerequisites
 - JDK 8+
 - Apache Tomcat (or any Java EE-compatible server)
+- MySQL Database
 - Eclipse/IntelliJ IDEA (Optional)
+
+### Database Setup
+1️⃣ Create a MySQL database and table:
+```sql
+CREATE DATABASE userdb;
+USE userdb;
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(100)
+);
+```
+
+2️⃣ Update the `DatabaseConnection.java` file with your MySQL credentials:
+```java
+private static final String URL = "jdbc:mysql://localhost:3306/userdb";
+private static final String USER = "root";
+private static final String PASSWORD = "yourpassword";
+```
 
 ### Steps to Run
 1️⃣ Clone the repository:
@@ -62,6 +99,17 @@ cd your-repo
 http://localhost:8080/your-app-name/Cookie1
 http://localhost:8080/your-app-name/HSession1
 http://localhost:8080/your-app-name/FilteredServlet
+http://localhost:8080/your-app-name/AddUserServlet
+http://localhost:8080/your-app-name/ViewUsersServlet
+http://localhost:8080/your-app-name/UpdateUserServlet
+http://localhost:8080/your-app-name/DeleteUserServlet
+```
+
+## Git Commands to Push Updates
+```sh
+git add .
+git commit -m "Added servlet and filter functionality with CRUD operations"
+git push origin main
 ```
 
 ## Contributing
